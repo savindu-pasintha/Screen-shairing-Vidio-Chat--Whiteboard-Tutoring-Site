@@ -1,11 +1,4 @@
-# Getting Started with Create React App
-#                   I WORKED 19 HOURS PER A DAY.
-# 1 - 2021 - 06 - 01   start
-# 2 - 2021 - 06 - 10   first milstaone   completed     - login-registration-message firebase/storage()
-# 3 - 2021 - 06 - 11   second milstone   completed     - one to one audio transmit   npm i simple-peer with webRTC
-# 4 - 2021 - 06 - 12   third milstone    completed     - drawing canvas whiteboard    npm i react-drawing-bard
-# 5 - 2021 - 06 -      forth milestone                 - whiteboard sharing one to one    
-# 6 - 2021 - 06 -      fifth milestone                 - recording and download capturing whiteboard and audios.
+
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
