@@ -1,0 +1,21 @@
+#canvasContainer{
+  position: fixed;
+  background-color: red;
+  width: 100%;
+  height: 600px;
+}
+#canvasContainer #overlay {
+  z-index: 2;
+  position: absolute;
+  background-color: red;
+  width: 100%;
+  height: 600px;
+}
+
+#canvasContainer #images {
+  position: relative;
+  z-index: 1;
+  background-color: purple;
+  width: 100%;
+  height: 600px;
+}
