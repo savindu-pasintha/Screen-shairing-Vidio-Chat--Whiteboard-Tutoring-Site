@@ -81,9 +81,9 @@ const Erase = () => {
               if(mode === "pen"){
                 ctx.globalCompositeOperation="source-over";
 
-             //   ctx.moveTo(0,0);
-              //  ctx.lineTo(mouseX,mouseY);
-            //ctx.beginPath();
+            //   ctx.moveTo(0,0);
+            //   ctx.lineTo(mouseX,mouseY);
+            //   ctx.beginPath();
                   ctx.moveTo(lastX,lastY);
                   ctx.lineTo(e.clientX,e.clientY);
               //  ctx.lineTo(10,mouseY);

@@ -42,7 +42,8 @@
 // in the presented order. The first working server will be used for
 // the whole session.
 //
-
+import { Janus } from 'janus-gateway';
+import $ from 'jquery';
 
 var server = null;
 if(window.location.protocol === 'http:')
@@ -67,14 +68,17 @@ var myid = null;
 var webrtcUp = false;
 var audioenabled = false;
 
-
 $(document).ready(function() {
+
+
 	// Initialize the library (all console debuggers enabled)
 	Janus.init({debug: "all", callback: function() {
 		// Use a button to start the demo
 		$('#start').one('click', function() {
+			console.log("clicked");
+			
 			$(this).attr('disabled', true).unbind('click');
-			// Make sure the browser supports WebRTC
+			// Mnpm run rollup -- --o /path/to/desired/output/file-name.js --f cjs # or es, iffe, umd, amd, ...ake sure the browser supports WebRTC
 			if(!Janus.isWebrtcSupported()) {
 				bootbox.alert("No WebRTC support... ");
 				return;

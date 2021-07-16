@@ -12,6 +12,8 @@ import D from '../Component/Whiteboard/canvas/D';
 import Erase from '../Component/Whiteboard/Erase/Erase';
 import Erasss from '../Component/Whiteboard/Erase/Erasee';
 import Audiobridgetesting from '../Component/Janus/Audiobridgetesting';
+import App from '../App';
+
 function Routing() {
   return (
     <div >
@@ -28,6 +30,7 @@ function Routing() {
             <Route path="/drawing2" component={D} />
             <Route path="/erase" component={Erase} />
             <Route path="/erase2" component={Erasss} />
+            <Route path="/app" component={App} />
           </Switch>
     </div>
   );
