@@ -10,7 +10,7 @@
 
 #canvas_3_ID {
   position: absolute;
-  z-index: 10;
+  z-index: 3;
 
 }
 
@@ -42,7 +42,7 @@ canvas {
 }
 
 #textbox {
-  z-index: 2;
+  z-index: 3;
   background: transparent;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;

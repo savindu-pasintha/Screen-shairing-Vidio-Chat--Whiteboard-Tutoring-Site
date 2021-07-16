@@ -1,20 +1,42 @@
 import React, { useEffect, useRef, useState } from 'react';
-
-
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import './Whiteboard.css';
 
 const Erasee = () => {
   const [isDrawing, setIsDrawing] = useState(false);
   const [toolName, setToolName] = useState("pen");
   const [emogi, setEmogi] = useState("");
-   const[color,setColor]=useState("");
+  const[color,setColor]=useState("");
+
+  const[colorPage,setColorPage]=useState("");
+  const[colorPageIndexID,setcolorPageIndexID]=useState("1colorpage");
+ 
   const [count, setCount] = useState(0);
-  const [oldStartPoint, setOldStartPoint] = useState([0,0])
-  const [startPoint, setStartPoint] = useState([])
-  const [keyStartPoint, setKeyStartPoint] = useState([0,0])
+  const [oldStartPoint, setOldStartPoint] = useState([0,0]);
+  const [startPoint, setStartPoint] = useState([]);
+  const [keyStartPoint, setKeyStartPoint] = useState([0,0]);
+
   const [annotations, setAnnotations] = useState([]);
-  const [inputBox, setInputBox] = useState("hidden")
-  const [disableInput, setDisableInput] = useState("")
+  const [pageIndex, setPageIndex] = useState(0);
+  const [listOFImage, setListOFImage] = useState([
+    "https://i.picsum.photos/id/1059/800/600.jpg?hmac=vnm2z-u91f7W8_12lTifycQSjv_i-6f7moMZSsIgY8U",
+    "https://i.picsum.photos/id/795/800/600.jpg?hmac=ijiBV8E3aju1BG-FF1y_gJIuighcEnQHNkV8-TKGEpo",
+    "https://i.picsum.photos/id/888/800/600.jpg?hmac=G7f8eYeHyKrKnKXNIBtXgxM-86vi-yvgmQ-Wb4v8T7I",
+    "https://i.picsum.photos/id/1059/800/600.jpg?hmac=vnm2z-u91f7W8_12lTifycQSjv_i-6f7moMZSsIgY8U",
+    "https://i.picsum.photos/id/795/800/600.jpg?hmac=ijiBV8E3aju1BG-FF1y_gJIuighcEnQHNkV8-TKGEpo",
+    "https://i.picsum.photos/id/888/800/600.jpg?hmac=G7f8eYeHyKrKnKXNIBtXgxM-86vi-yvgmQ-Wb4v8T7I",
+    "https://i.picsum.photos/id/1059/800/600.jpg?hmac=vnm2z-u91f7W8_12lTifycQSjv_i-6f7moMZSsIgY8U",
+    "https://i.picsum.photos/id/795/800/600.jpg?hmac=ijiBV8E3aju1BG-FF1y_gJIuighcEnQHNkV8-TKGEpo",
+    "https://i.picsum.photos/id/888/800/600.jpg?hmac=G7f8eYeHyKrKnKXNIBtXgxM-86vi-yvgmQ-Wb4v8T7I",
+    "https://i.picsum.photos/id/1059/800/600.jpg?hmac=vnm2z-u91f7W8_12lTifycQSjv_i-6f7moMZSsIgY8U",
+    "https://i.picsum.photos/id/795/800/600.jpg?hmac=ijiBV8E3aju1BG-FF1y_gJIuighcEnQHNkV8-TKGEpo",
+    "https://i.picsum.photos/id/888/800/600.jpg?hmac=G7f8eYeHyKrKnKXNIBtXgxM-86vi-yvgmQ-Wb4v8T7I"
+  ]);
+
+
+  const [inputBox, setInputBox] = useState("hidden");
+  const [disableInput, setDisableInput] = useState("");
 
 
   const canvasRef = useRef(null);
@@ -145,7 +167,6 @@ const Erasee = () => {
   //mouse move event
   const draw = ({ nativeEvent }) => {
     const { offsetX, offsetY } = nativeEvent;
-    
     if (!isDrawing) {
       contextRef3.current.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
       contextRef3.current.beginPath();
@@ -224,10 +245,13 @@ const Erasee = () => {
   	setEmogi(emogiType);
   }
 
-  const getColor = (color) => {
-  	setColor(color);
+  const getColor = (colorbtn) => {
+  	setColor(colorbtn);
   }
 
+  
+
+  
 
 
   const getImage = () => {
@@ -260,8 +284,45 @@ const Erasee = () => {
     console.log(annotations);
   }
 
+  const getLoadImageInPdf= (buttonindexID) => {
+    document.getElementById(buttonindexID).style.backgroundColor = "red";
+    var beforebuttonindexID = colorPageIndexID;
+    if(buttonindexID !== beforebuttonindexID){
+         document.getElementById(beforebuttonindexID).style.backgroundColor = "white";
+     }
+    setcolorPageIndexID(buttonindexID);
+
+   //load image to page
+    var index = buttonindexID.replace("colorpage","");
+    var image = document.createElement('img');
+    image.src =  listOFImage[index];
+    image.alt = buttonindexID ; 
+    contextRef2.current.drawImage(image, 0, 0, 800, 600);
+  }
+
+ const getBackandForward = (slide) =>{
+  setPageIndex(slide);
+ }
+
+  const ab = () => {
+    return (
+      <>
+        {
+        listOFImage.map((user,index) => (
+           <button id={index+"colorpage"} onClick={() =>{getLoadImageInPdf(index+"colorpage")}}  style={{display:"inline" ,  width:"50px", border:"none", height:"50px"  }}>
+             {index+1}👆
+           </button>
+        ))
+        }
+      </>
+    );
+  };
+  
+  
   return (
     <div>
+
+      
       <div className = "tool-container">
 
         <button onClick={() =>{getEmogi("👆");}} style={{ width:"40px", border:"none" }} id="blue">👆</button>
@@ -285,12 +346,19 @@ const Erasee = () => {
         <button onClick={getNext} style={{  border:"none" }} id="next">+</button>
         <button onClick={getText} style={{  border:"none" }} id="text">Text</button>
 
+       
       </div>
-
+      <div style={{width:"100%",height:"50px", display:"block" ,position:"relative"}} className = "tool-container text-center">
+       <ArrowBackIosIcon onClick={()=>{if(pageIndex>0) {getBackandForward(pageIndex-1);} }} style={{  height:"50px", width:"50px",  display:"inline" , border:"none",color:"white", backgroundColor:"black" }} />
+        {ab()}
+       <ArrowForwardIosIcon onClick={()=>{if(pageIndex>=0) {getBackandForward(pageIndex+1);} }} style={{ height:"50px", width:"50px", display:"inline" , border:"none", color:"white", backgroundColor:"black" }}/>
+         </div>
+     
       <div className = "canvas-container">
 
        <canvas id="canvas_3_ID"
           ref={canvasRef3}
+           
           onMouseDown={startDrawing}
           onMouseUp={finishDrawing}
           onMouseMove={draw}
@@ -299,6 +367,7 @@ const Erasee = () => {
         <canvas
           id = "overlay"
           ref={canvasRef}
+        
         />
         <input 
         type = "text"
@@ -354,7 +423,7 @@ const Erasee = () => {
           ></img>
         </div>
       </div>
-    </div>
+          </div>
   );
 }
 
